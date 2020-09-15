@@ -36,6 +36,10 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
+using System.Linq;
+using Microsoft.AspNetCore.Cors;
+using StackExchange.Redis;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Acme.BookStore.Web
 {
@@ -53,6 +57,7 @@ namespace Acme.BookStore.Web
         )]
     public class BookStoreWebModule : AbpModule
     {
+        private const string DefaultCorsPolicyName = "Default";
         public override void PreConfigureServices(ServiceConfigurationContext context)
         {
             context.Services.PreConfigure<AbpMvcDataAnnotationsLocalizationOptions>(options =>
@@ -80,14 +85,49 @@ namespace Acme.BookStore.Web
             ConfigureLocalizationServices();
             ConfigureNavigationServices();
             ConfigureAutoApiControllers();
+            ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context.Services);
+            ConfigureRedis(context, configuration, hostingEnvironment);
         }
-
+        private void ConfigureRedis(
+           ServiceConfigurationContext context,
+           IConfiguration configuration,
+           IWebHostEnvironment hostingEnvironment)
+        {
+            if (!hostingEnvironment.IsDevelopment())
+            {
+                var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
+                context.Services
+                    .AddDataProtection()
+                    .PersistKeysToStackExchangeRedis(redis, "BookStore-Protection-Keys");
+            }
+        }
         private void ConfigureUrls(IConfiguration configuration)
         {
             Configure<AppUrlOptions>(options =>
             {
                 options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
+            });
+        }
+        private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            context.Services.AddCors(options =>
+            {
+                options.AddPolicy(DefaultCorsPolicyName, builder =>
+                {
+                    builder
+                        .WithOrigins(
+                            configuration["App:CorsOrigins"]
+                                .Split(",", StringSplitOptions.RemoveEmptyEntries)
+                                .Select(o => o.RemovePostFix("/"))
+                                .ToArray()
+                        )
+                        .WithAbpExposedHeaders()
+                        .SetIsOriginAllowedToAllowWildcardSubdomains()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
             });
         }
 
@@ -130,14 +170,8 @@ namespace Acme.BookStore.Web
         {
             Configure<AbpLocalizationOptions>(options =>
             {
-                options.Languages.Add(new LanguageInfo("ar", "ar", "العربية"));
-                options.Languages.Add(new LanguageInfo("cs", "cs", "Čeština"));
                 options.Languages.Add(new LanguageInfo("en", "en", "English"));
-                options.Languages.Add(new LanguageInfo("pt-BR", "pt-BR", "Português"));
-                options.Languages.Add(new LanguageInfo("ru", "ru", "Русский"));
-                options.Languages.Add(new LanguageInfo("tr", "tr", "Türkçe"));
                 options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
-                options.Languages.Add(new LanguageInfo("zh-Hant", "zh-Hant", "繁體中文"));
             });
         }
 
@@ -189,6 +223,7 @@ namespace Acme.BookStore.Web
             app.UseCorrelationId();
             app.UseVirtualFiles();
             app.UseRouting();
+            app.UseCors(DefaultCorsPolicyName);
             app.UseAuthentication();
             app.UseJwtTokenMiddleware();
 

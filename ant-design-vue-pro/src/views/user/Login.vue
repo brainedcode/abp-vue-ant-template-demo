@@ -13,14 +13,14 @@
         @change="handleTabClick"
       >
         <a-tab-pane key="tab1" tab="账号密码登录">
-          <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
+          <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin )" />
           <a-form-item>
             <a-input
               size="large"
               type="text"
               placeholder="账户: admin"
               v-decorator="[
-                'username',
+                'userNameOrEmailAddress',
                 {rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
               ]"
             >
@@ -31,7 +31,7 @@
           <a-form-item>
             <a-input-password
               size="large"
-              placeholder="密码: admin or ant.design"
+              placeholder="密码: 1q2w3E*"
               v-decorator="[
                 'password',
                 {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
@@ -114,7 +114,6 @@
 </template>
 
 <script>
-import md5 from 'md5'
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
@@ -181,17 +180,20 @@ export default {
 
       state.loginBtn = true
 
-      const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
+      const validateFieldsKey = customActiveKey === 'tab1' ? ['userNameOrEmailAddress', 'password'] : ['mobile', 'captcha']
 
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
           console.log('login form', values)
           const loginParams = { ...values }
-          delete loginParams.username
-          loginParams[!state.loginType ? 'email' : 'username'] = values.username
-          loginParams.password = md5(values.password)
+          delete loginParams.userNameOrEmailAddress
+          loginParams[!state.loginType ? 'userNameOrEmailAddress' : 'userNameOrEmailAddress'] = values.userNameOrEmailAddress
+          loginParams.password = values.password
           Login(loginParams)
-            .then((res) => this.loginSuccess(res))
+            .then(res => {
+              console.log(22, res)
+              this.loginSuccess(res)
+            })
             .catch(err => this.requestFailed(err))
             .finally(() => {
               state.loginBtn = false
