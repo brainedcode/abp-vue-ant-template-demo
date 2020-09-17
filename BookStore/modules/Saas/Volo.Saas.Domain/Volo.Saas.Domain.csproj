@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.ObjectMapping" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Domain" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Volo.Saas.Domain.Shared\Volo.Saas.Domain.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Volo.Saas.Domain\Volo.Saas.Domain.csproj" />
+    <ProjectReference Include="..\Volo.Saas.Tenant.Application.Contracts\Volo.Saas.Tenant.Application.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

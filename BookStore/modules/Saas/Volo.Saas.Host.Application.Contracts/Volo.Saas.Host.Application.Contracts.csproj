@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Volo\Saas\Localization\Resources\DomainShared\*.json" />
+		<content Remove="Volo\Saas\Localization\Resources\DomainShared\*.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Volo.Saas.Domain.Shared\Volo.Saas.Domain.Shared.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Volo.Abp.Ddd.Application" Version="3.1.2" />
+	</ItemGroup>
+</Project>

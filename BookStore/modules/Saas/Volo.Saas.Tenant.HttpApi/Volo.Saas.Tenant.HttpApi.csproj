@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="3.1.2" />
+
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Volo.Saas.Tenant.Application.Contracts\Volo.Saas.Tenant.Application.Contracts.csproj" />
+	</ItemGroup>
+</Project>
