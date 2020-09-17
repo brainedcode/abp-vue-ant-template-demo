@@ -1,15 +1,15 @@
 import request from '@/utils/request'
 
 const userApi = {
-  Login: '/account/login',
-  Logout: '/account/logout',
+  Login: '/connect/token',
+  Logout: '/api/account/logout',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',
   twoStepCode: '/auth/2step-code',
   SendSms: '/account/sms',
   SendSmsErr: '/account/sms_err',
   // get my info
-  UserInfo: '/user/info',
+  UserInfo: '/api/identity/my-profile',
   UserMenu: '/user/nav'
 }
 
@@ -25,11 +25,17 @@ const userApi = {
  * @returns {*}
  */
 export function login (parameter) {
-  console.log(parameter)
+  const data = []
+  for (const p in parameter) {
+    data.push(p + '=' + parameter[p])
+  }
   return request({
     url: userApi.Login,
     method: 'post',
-    data: parameter
+    data: data.join('&'),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
   })
 }
 
@@ -61,7 +67,7 @@ export function getCurrentUserNav () {
 export function logout () {
   return request({
     url: userApi.Logout,
-    method: 'post',
+    method: 'get',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     }

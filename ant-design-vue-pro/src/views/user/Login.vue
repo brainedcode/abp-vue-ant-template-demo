@@ -187,11 +187,15 @@ export default {
           console.log('login form', values)
           const loginParams = { ...values }
           delete loginParams.userNameOrEmailAddress
-          loginParams[!state.loginType ? 'userNameOrEmailAddress' : 'userNameOrEmailAddress'] = values.userNameOrEmailAddress
+          loginParams[!state.loginType ? 'username' : 'username'] = values.userNameOrEmailAddress
           loginParams.password = values.password
+          loginParams.grant_type = 'password'
+          loginParams.scope = ''
+          loginParams.client_id = 'BookStore_App'
+          loginParams.client_secret = '1q2w3e*'
+          loginParams.AccessTokenLifetime = 20000
           Login(loginParams)
             .then(res => {
-              console.log(22, res)
               this.loginSuccess(res)
             })
             .catch(err => this.requestFailed(err))

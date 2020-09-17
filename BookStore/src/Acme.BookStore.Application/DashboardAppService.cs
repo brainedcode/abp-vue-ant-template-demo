@@ -1,4 +1,7 @@
 ﻿using Acme.BookStore.Localization;
+using Acme.BookStore.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -14,7 +17,8 @@ namespace Acme.BookStore
         {
             _localizer = localizer;
         }
-
+        [Authorize(BookStorePermissions.FormPage.BaseForm)]
+        [HttpGet]
         public string Foo()
         {
             var str = _localizer["Permission:Dashboard"];

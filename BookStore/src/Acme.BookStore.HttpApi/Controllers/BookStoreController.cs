@@ -1,4 +1,5 @@
 ﻿using Acme.BookStore.Localization;
+using Microsoft.AspNetCore.Identity;
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace Acme.BookStore.Controllers
@@ -7,9 +8,11 @@ namespace Acme.BookStore.Controllers
      */
     public abstract class BookStoreController : AbpController
     {
+        protected SignInManager<IdentityUser> SignInManager { get; }
         protected BookStoreController()
         {
             LocalizationResource = typeof(BookStoreResource);
+            
         }
     }
 }

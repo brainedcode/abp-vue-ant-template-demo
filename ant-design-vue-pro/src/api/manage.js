@@ -2,14 +2,23 @@ import request from '@/utils/request'
 
 const api = {
   user: '/user',
-  role: '/role',
+  role: '/api/identity/roles',
+  createRole: '/api/identity/roles',
   service: '/service',
   permission: '/permission',
   permissionNoPager: '/permission/no-pager',
-  orgTree: '/org/tree'
+  orgTree: '/org/tree',
+  profile: '/identity/my-profile'
 }
 
 export default api
+
+export function getProfile () {
+  return request({
+    url: api.profile,
+    method: 'get'
+  })
+}
 
 export function getUserList (parameter) {
   return request({
@@ -26,7 +35,26 @@ export function getRoleList (parameter) {
     params: parameter
   })
 }
-
+export function createRole (parameter) {
+  return request({
+    url: api.role,
+    method: 'post',
+    data: parameter
+  })
+}
+export function updateRole (id, parameter) {
+  return request({
+    url: api.role + '/' + id,
+    method: 'put',
+    data: parameter
+  })
+}
+export function deleteRole (id) {
+  return request({
+    url: api.role + '/' + id,
+    method: 'delete'
+  })
+}
 export function getServiceList (parameter) {
   return request({
     url: api.service,

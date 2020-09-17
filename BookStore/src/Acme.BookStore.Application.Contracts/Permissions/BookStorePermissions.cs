@@ -15,5 +15,13 @@
             public const string Monitor = Default + ".Monitor";
             public const string Workplace = Default + ".Workplace";
         }
+
+        public static class FormPage
+        {
+            public const string Default = GroupName + ".FormPage";
+            public const string BaseForm = Default + ".BaseForm";
+            public const string StepForm = Default + ".StepForm";
+            public const string AdvancedForm = Default + ".AdvancedForm";
+        }
     }
 }

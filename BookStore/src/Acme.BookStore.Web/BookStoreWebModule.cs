@@ -40,6 +40,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Cors;
 using StackExchange.Redis;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Acme.BookStore.Web
 {
@@ -53,7 +55,8 @@ namespace Acme.BookStore.Web
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(AbpTenantManagementWebModule),
-        typeof(AbpAspNetCoreSerilogModule)
+        typeof(AbpAspNetCoreSerilogModule),
+        typeof(AbpPermissionManagementWebModule)
         )]
     public class BookStoreWebModule : AbpModule
     {
@@ -88,6 +91,7 @@ namespace Acme.BookStore.Web
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context.Services);
             ConfigureRedis(context, configuration, hostingEnvironment);
+
         }
         private void ConfigureRedis(
            ServiceConfigurationContext context,
@@ -242,6 +246,7 @@ namespace Acme.BookStore.Web
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
+
         }
     }
 }

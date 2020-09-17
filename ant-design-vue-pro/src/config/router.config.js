@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 import { UserLayout, BasicLayout, BlankLayout } from '@/layouts'
 import { bxAnaalyse } from '@/core/icons'
+// import { settings } from 'nprogress'
 
 const RouteView = {
   name: 'RouteView',
@@ -44,7 +45,29 @@ export const asyncRouterMap = [
           }
         ]
       },
-
+       {
+       path: '/manager',
+       redirect: '',
+       component: RouteView,
+       meta: { title: '管理', keepAlive: true, icon: 'setting' },
+       children: [
+        {
+          path: '/manager/identity',
+          name: 'identity',
+          redirect: '/manager/identity/roles',
+          component: RouteView,
+          meta: { title: '身份标识管理', keepAlive: true, permission: [ 'table' ] },
+          children: [
+            {
+              path: '/manager/identity/roles',
+              name: 'Roles',
+              component: () => import('../views/manager/identity/roles/Role'),
+              meta: { title: '角色', keepAlive: true, permission: [ 'roles' ] }
+            }
+          ]
+        }
+       ]
+      },
       // forms
       {
         path: '/form',
