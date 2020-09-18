@@ -37,9 +37,15 @@ namespace Acme.BookStore
             {
                 options.IsEnabled = MultiTenancyConsts.IsEnabled;
             });
+            Configure<AbpBackgroundJobOptions>(options =>
+            {
+                options.IsJobExecutionEnabled = false;
+            });
+
 
 #if DEBUG
             context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
+
 #endif
         }
     }

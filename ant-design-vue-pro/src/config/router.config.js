@@ -51,6 +51,21 @@ export const asyncRouterMap = [
        component: RouteView,
        meta: { title: '管理', keepAlive: true, icon: 'setting' },
        children: [
+         {
+          path: '/manager/saas',
+          name: 'saas',
+          redirect: '/manager/saas',
+          component: RouteView,
+          meta: { title: 'Saas', keepAlive: true, permission: [ 'table' ] },
+          children: [
+            {
+              path: '/manager/saas/editions',
+              name: 'Roles',
+              component: () => import('../views/manager/saas/editions/Edition'),
+              meta: { title: '版本管理', keepAlive: true, permission: [ 'editions' ] }
+            }
+          ]
+         },
         {
           path: '/manager/identity',
           name: 'identity',
