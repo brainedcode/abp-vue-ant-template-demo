@@ -5,7 +5,8 @@ using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.TenantManagement;
-
+using Volo.Saas.Host;
+using Volo.Saas.Tenants;
 namespace Acme.BookStore
 {
     [DependsOn(
@@ -15,7 +16,9 @@ namespace Acme.BookStore
         typeof(AbpIdentityApplicationModule),
         typeof(AbpPermissionManagementApplicationModule),
         typeof(AbpTenantManagementApplicationModule),
-        typeof(AbpFeatureManagementApplicationModule)
+        typeof(AbpFeatureManagementApplicationModule),
+        typeof(SaasHostApplicationModule),
+        typeof(SaasTenantApplicationModule)
         )]
     public class BookStoreApplicationModule : AbpModule
     {

@@ -7,7 +7,8 @@ using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.TenantManagement;
-
+using Volo.Saas.Tenants;
+using Volo.Saas.Host;
 namespace Acme.BookStore
 {
     [DependsOn(
@@ -16,7 +17,9 @@ namespace Acme.BookStore
         typeof(AbpIdentityHttpApiModule),
         typeof(AbpPermissionManagementHttpApiModule),
         typeof(AbpTenantManagementHttpApiModule),
-        typeof(AbpFeatureManagementHttpApiModule)
+        typeof(AbpFeatureManagementHttpApiModule),
+        typeof(SaasTenantHttpApiModule),
+        typeof(SaasHostHttpApiModule)
         )]
     public class BookStoreHttpApiModule : AbpModule
     {

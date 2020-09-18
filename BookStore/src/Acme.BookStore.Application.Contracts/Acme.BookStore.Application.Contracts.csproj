@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\modules\Saas\Volo.Saas.Host.Application.Contracts\Volo.Saas.Host.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\modules\Saas\Volo.Saas.Tenant.Application.Contracts\Volo.Saas.Tenant.Application.Contracts.csproj" />
     <ProjectReference Include="..\Acme.BookStore.Domain.Shared\Acme.BookStore.Domain.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>

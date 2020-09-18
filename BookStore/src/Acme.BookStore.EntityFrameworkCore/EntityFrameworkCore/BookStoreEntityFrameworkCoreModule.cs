@@ -10,7 +10,7 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
-
+using Volo.Saas.EntityFrameworkCore;
 namespace Acme.BookStore.EntityFrameworkCore
 {
     [DependsOn(
@@ -23,7 +23,8 @@ namespace Acme.BookStore.EntityFrameworkCore
         typeof(AbpBackgroundJobsEntityFrameworkCoreModule),
         typeof(AbpAuditLoggingEntityFrameworkCoreModule),
         typeof(AbpTenantManagementEntityFrameworkCoreModule),
-        typeof(AbpFeatureManagementEntityFrameworkCoreModule)
+        typeof(AbpFeatureManagementEntityFrameworkCoreModule),
+        typeof(SaasEntityFrameworkCoreModule)
         )]
     public class BookStoreEntityFrameworkCoreModule : AbpModule
     {

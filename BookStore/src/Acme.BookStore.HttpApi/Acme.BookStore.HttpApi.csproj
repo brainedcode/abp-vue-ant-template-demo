@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\modules\Saas\Volo.Saas.Host.HttpApi\Volo.Saas.Host.HttpApi.csproj" />
+    <ProjectReference Include="..\..\modules\Saas\Volo.Saas.Tenant.HttpApi\Volo.Saas.Tenant.HttpApi.csproj" />
     <ProjectReference Include="..\Acme.BookStore.Application.Contracts\Acme.BookStore.Application.Contracts.csproj" />
   </ItemGroup>
 

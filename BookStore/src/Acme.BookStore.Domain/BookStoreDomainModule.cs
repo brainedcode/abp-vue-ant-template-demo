@@ -13,7 +13,7 @@ using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.IdentityServer;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
-
+using Volo.Saas;
 namespace Acme.BookStore
 {
     [DependsOn(

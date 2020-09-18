@@ -28,4 +28,8 @@
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\modules\Saas\Volo.Saas.Domain.Shared\Volo.Saas.Domain.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
